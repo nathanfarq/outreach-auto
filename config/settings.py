@@ -19,6 +19,9 @@ def _require(name: str) -> str:
 NOTION_API_KEY: str = _require("NOTION_API_KEY")
 NOTION_NETWORK_DB_ID: str = _require("NOTION_NETWORK_DB_ID")
 
+# Tavily (Phase 2 — web search)
+TAVILY_API_KEY: str = os.getenv("TAVILY_API_KEY", "")
+
 # OpenRouter (Phase 2)
 OPENROUTER_API_KEY: str = os.getenv("OPENROUTER_API_KEY", "")
 OPENROUTER_MODEL: str = os.getenv("OPENROUTER_MODEL", "meta-llama/llama-3.1-8b-instruct")

@@ -1,5 +1,7 @@
 """Fetches contacts from the Notion Network database and returns typed Contact objects."""
 
+from typing import cast
+
 from notion_client import Client
 
 from src.contacts.schema import Contact
@@ -19,7 +21,7 @@ class NotionContactClient:
             if cursor:
                 kwargs["start_cursor"] = cursor
 
-            response = self._client.databases.query(**kwargs)
+            response: dict = cast(dict, self._client.databases.query(**kwargs))
 
             for page in response["results"]:
                 contact = self._parse_page(page)
@@ -109,3 +111,31 @@ class NotionContactClient:
         if ptype == "rich_text":
             return self._rich_text(prop)
         return None
+
+    # --- write / resolve helpers ---
+
+    def resolve_organization_name(self, page_id: str) -> str | None:
+        """Fetch an org page by ID and return its title. Returns None on any error."""
+        try:
+            page: dict = cast(dict, self._client.pages.retrieve(page_id=page_id))
+            props = page.get("properties", {})
+            for key in ("Name", "Title", "Company"):
+                if key in props:
+                    title = self._title(props[key])
+                    if title:
+                        return title
+            return None
+        except Exception:
+            return None
+
+    def update_notes_and_status(self, page_id: str, notes: str) -> None:
+        """Overwrite the Notes field and set Status to 'Enriched'."""
+        self._client.pages.update(
+            page_id=page_id,
+            properties={
+                "Notes": {
+                    "rich_text": [{"type": "text", "text": {"content": notes[:2000]}}]
+                },
+                "Status": {"select": {"name": "Enriched"}},
+            },
+        )

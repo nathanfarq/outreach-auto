@@ -14,3 +14,4 @@ class Contact(BaseModel):
     notes: str | None = None
     status: str | None = None         # Notion select value
     organization_ids: list[str] = []  # raw Notion relation page IDs
+    organization_name: str | None = None  # resolved from first org ID during enrichment
