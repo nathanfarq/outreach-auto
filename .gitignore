@@ -17,6 +17,7 @@ vendor/
 .venv/
 env/
 venv/
+.env
 .env.local
 
 # Test and coverage outputs
