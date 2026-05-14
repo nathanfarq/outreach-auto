@@ -1,0 +1,13 @@
+# Phase 3 — Personalization prompt (Claude via Anthropic API)
+#
+# This prompt is sent to Claude to generate a 1-2 sentence personalized opener
+# that will be prepended to the email template body. Keep it short and natural —
+# it should read like something a founder would write, not marketing copy.
+#
+# Variables available at render time:
+#   {name}    — contact full name
+#   {firm}    — organization name
+#   {hook}    — enrichment hook sentence from Phase 2
+#   {style}   — selected template style (general / direct / curious)
+#
+# Populate this file before running Phase 3.

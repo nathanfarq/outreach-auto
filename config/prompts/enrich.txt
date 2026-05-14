@@ -1,0 +1,13 @@
+# Phase 2 — Enrichment prompt (cheap open model via OpenRouter)
+#
+# This prompt is sent to the open model along with raw web search snippets.
+# The model should return a single concise sentence: the most interesting or
+# relevant fact about this contact that could open a cold email naturally.
+#
+# Variables available at render time:
+#   {name}      — contact full name
+#   {firm}      — organization name
+#   {location}  — city / province
+#   {snippets}  — concatenated search result excerpts
+#
+# Populate this file before running Phase 2.
