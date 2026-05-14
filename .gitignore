@@ -1,0 +1,32 @@
+# Common Python ignores
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Package artifacts
+build/
+dist/
+*.egg-info/
+
+# Dependencies
+node_modules/
+vendor/
+
+# Virtual environments
+.env/
+.venv/
+env/
+venv/
+
+# Test and coverage outputs
+.pytest_cache/
+.coverage
+
+# IDE directories
+.vscode/
+.idea/
+.vs/
+
+# OS-generated files
+.DS_Store
+Thumbs.db
