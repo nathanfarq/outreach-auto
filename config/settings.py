@@ -18,6 +18,7 @@ def _require(name: str) -> str:
 # Notion
 NOTION_API_KEY: str = _require("NOTION_API_KEY")
 NOTION_NETWORK_DB_ID: str = _require("NOTION_NETWORK_DB_ID")
+NOTION_QUEUE_DB_ID: str = os.getenv("NOTION_QUEUE_DB_ID", "")
 
 # Tavily (Phase 2 — web search)
 TAVILY_API_KEY: str = os.getenv("TAVILY_API_KEY", "")
@@ -26,8 +27,12 @@ TAVILY_API_KEY: str = os.getenv("TAVILY_API_KEY", "")
 OPENROUTER_API_KEY: str = os.getenv("OPENROUTER_API_KEY", "")
 OPENROUTER_MODEL: str = os.getenv("OPENROUTER_MODEL", "meta-llama/llama-3.1-8b-instruct")
 
-# Anthropic (Phase 3)
+# Anthropic (Phase 3) — kept for reference; actual calls go via OpenRouter
 ANTHROPIC_API_KEY: str = os.getenv("ANTHROPIC_API_KEY", "")
+
+# OpenRouter model used for personalization (Phase 3).
+# Defaults to Claude Haiku; override in .env.local to swap models.
+DRAFTING_MODEL: str = os.getenv("DRAFTING_MODEL", "anthropic/claude-haiku-4-5-20251001")
 
 # Gmail — school (initial outreach)
 GMAIL_SCHOOL_ADDRESS: str = os.getenv("GMAIL_SCHOOL_ADDRESS", "")
@@ -44,3 +49,6 @@ GMAIL_WORK_REFRESH_TOKEN: str = os.getenv("GMAIL_WORK_REFRESH_TOKEN", "")
 # Outreach filter — statuses that mean "this contact is ready to be emailed".
 # Add "To reconnect" here when you want warm re-engagement in the same pipeline.
 READY_STATUSES: frozenset[str] = frozenset({"", "No contact", "To contact", "To reconnect"})
+
+# Send phase — hard cap on emails dispatched per run.
+MAX_SENDS_PER_DAY: int = int(os.getenv("MAX_SENDS_PER_DAY", "20"))

@@ -1,13 +1,19 @@
-# Phase 3 — Personalization prompt (Claude via Anthropic API)
-#
-# This prompt is sent to Claude to generate a 1-2 sentence personalized opener
-# that will be prepended to the email template body. Keep it short and natural —
-# it should read like something a founder would write, not marketing copy.
-#
-# Variables available at render time:
-#   {name}    — contact full name
-#   {firm}    — organization name
-#   {hook}    — enrichment hook sentence from Phase 2
-#   {style}   — selected template style (general / direct / curious)
-#
-# Populate this file before running Phase 3.
+You are writing the opening sentence(s) of a cold outreach email for TaxBuddy, a company that automates tax workflows for accounting and finance professionals.
+
+Contact name: {name}
+Organization: {firm}
+Hook (a specific, recent fact about this person): {hook}
+Email style: {style}
+
+Style guide:
+- general: warm and professional, collegial tone, low-pressure
+- direct: founder-to-founder, peer-level, gets to the point quickly
+- curious: light and exploratory, genuinely curious, no hard sell
+
+Write exactly 1-2 sentences as the personalized opener. Rules:
+- Write in first person as the sender
+- Reference the hook directly and specifically — do not be vague or generic
+- Do NOT write the rest of the email — only the opener sentences
+- No filler phrases ("I hope this finds you well", "I came across your profile", "I noticed that")
+- No exclamation marks
+- Output ONLY the 1-2 opener sentences, nothing else
