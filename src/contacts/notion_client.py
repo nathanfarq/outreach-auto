@@ -139,3 +139,23 @@ class NotionContactClient:
                 "Status": {"select": {"name": "Enriched"}},
             },
         )
+
+    def fetch_contact_by_id(self, page_id: str) -> "Contact | None":
+        """Retrieve a single contact by its Notion page ID. Returns None on any error."""
+        try:
+            page: dict = cast(dict, self._client.pages.retrieve(page_id=page_id))
+            return self._parse_page(page)
+        except Exception:
+            return None
+
+    def mark_contacted(self, page_id: str, notes: str) -> None:
+        """Set Status to 'Contacted' and overwrite the Notes field."""
+        self._client.pages.update(
+            page_id=page_id,
+            properties={
+                "Notes": {
+                    "rich_text": [{"type": "text", "text": {"content": notes[:2000]}}]
+                },
+                "Status": {"select": {"name": "Contacted"}},
+            },
+        )
